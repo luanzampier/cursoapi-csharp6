@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -27,11 +29,17 @@ app.MapPost("/salvarproduto", (Produto produto) => { //como parametro, passamos 
 
 });
 
+
+app.MapGet("/getproduct", ([FromQuery] string dateStart, [FromQuery] string dateEnd) => {
+    return dateStart + "--" + dateEnd;
+});
+
+app.MapGet("/getproduct/{code}", ([FromRoute] string code) => {
+    return code;
+});
+
+
 app.Run();
-
-
-
-
 
 
 public class Produto {
@@ -39,6 +47,8 @@ public class Produto {
     public string Cod { get; set; } // esse tipo de propriedade podemos tanto obter quanto alterar
     public string Name{ get; set; }
 }
+
+
 
 
 
